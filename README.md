@@ -35,17 +35,14 @@ Also includes examples of Hugo Features or Functions:
 - `where`
 - Content Views
 - Partials
-- Template layouts (type "post" uses a special list template, single template,  and a content view)
+- Template layouts (type "post" uses a special list template, single template, and a content view)
 - Tags
 - `len`
 - Conditionals
 - `ge` (greater than or equal to)
 - `.Site.Params.mainSections` to avoid hard-coding "blog," etc. [[release note](https://github.com/spf13/hugo/blob/66ec6305f6cb450ddf9c489854146bac02f7dca1/docs/content/meta/release-notes.md#enhancements)]
 
-
 This theme uses the "Tachyons" CSS library. This will allow you to manipulate the design of the theme by changing class names in HTML without touching the original CSS files. For more information see the [Tachyons website](http://tachyons.io/).
-
-
 
 ## Installation
 
@@ -65,21 +62,18 @@ Inside the folder of your Hugo site run:
 ```
 $ git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
 ```
+
 For more information read the official [setup guide](//gohugo.io/overview/installing/) of Hugo.
-
-
 
 ## Getting started
 
 After installing the theme successfully it requires a just a few more steps to get your site running.
-
 
 ### The config file
 
 Take a look inside the [`exampleSite`](https://github.com/theNewDynamic/gohugo-theme-ananke/tree/master/exampleSite) folder of this theme. You'll find a file called [`config.toml`](https://github.com/theNewDynamic/gohugo-theme-ananke/blob/master/exampleSite/config.toml). To use it, copy the [`config.toml`](https://github.com/theNewDynamic/gohugo-theme-ananke/blob/master/exampleSite/config.toml) in the root folder of your Hugo site. Feel free to change the strings in this theme.
 
 You may need to delete the line: `themesDir = "../.."`
-
 
 ### Add comments
 
@@ -101,8 +95,6 @@ If you would like to hide the header text on the featured image on a page, set `
 You don't need an image though. The default background color is black, but you can change the color, by changing the default color class in the config.toml file. Choose a background color from any on the [Tachyons](http://tachyons.io/docs/themes/skins/) library site, and preface it with "bg-"
 
 example: `background_color_class = "bg-blue"` or `background_color_class = "bg-gray"`
-
-
 
 ### Activate the contact form
 
@@ -133,9 +125,7 @@ You can find a list of available typefaces [here](https://github.com/tachyons-cs
 
 And a list of background colors [here](https://github.com/tachyons-css/tachyons/blob/v4.7.0/src/_skins.css#L96).
 
-
 _n.b. in future versions we will likely separate the typeface and other body classes._
-
 
 ### Custom CSS
 
@@ -152,11 +142,9 @@ For example, if your css files are `static/css/custom.css` and `static/css/custo
 
 If you add a key of `show_reading_time` true to either the Config Params, a page or section's front matter, articles will show the reading time and word count.
 
-
 ### Adding Scripts to the Page Head
 
 Some scripts need to be added within the page head. To add your own scripts to the page head, simply insert them into the `head-additions.html` partial located in the `layouts/partials` folder.
-
 
 ### Logo
 
@@ -166,7 +154,6 @@ You can replace the title of your site in the top left corner of each page with 
 [params]
   site_logo = "img/logo.svg"
 ```
-
 
 ### Nearly finished
 
@@ -194,9 +181,6 @@ hugo
 ## Contributing
 
 If you find a bug or have an idea for a feature, feel free to use the [issue tracker](https://github.com/theNewDynamic/gohugo-theme-ananke/issues) to let me know.
-
-
-
 
 TODO:
 

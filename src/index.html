@@ -10,14 +10,9 @@
     {{ hugo.Generator }}
     {{/* NOTE: For Production make sure you add `HUGO_ENV="production"` before your build command */}}
     {{ if eq (getenv "HUGO_ENV") "production" | or (eq .Site.Params.env "production")  }}
-      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+      <meta name="robots" content="index, follow">
     {{ else }}
-      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
-    {{ end }}
-
-    {{ $stylesheet := .Site.Data.webpack_assets.app }}
-    {{ with $stylesheet.css }}
-      <link href="{{ relURL (printf "%s%s" "dist/" .) }}" rel="stylesheet">
+      <meta name="robots" content="noindex, nofollow">
     {{ end }}
 
     {{ range .Site.Params.custom_css }}
@@ -43,16 +38,37 @@
     {{ if eq (getenv "HUGO_ENV") "production" | or (eq .Site.Params.env "production")  }}
       {{ template "_internal/google_analytics_async.html" . }}
     {{ end }}
-	{{ block "head" . }}{{ partial "head-additions.html" . }}{{ end }}
+    {{ block "head" . }}{{ partial "head-additions.html" . }}{{ end }}
+    <link rel="stylesheet" href="{{ relURL ("../../font.css") }}">
   </head>
 
-  <body class="ma0 {{ $.Param "body_classes"  | default "avenir bg-near-white"}}{{ with getenv "HUGO_ENV" }} {{ . }}{{ end }}">
-
-    {{ block "header" . }}{{ partial "site-header.html" .}}{{ end }}
-    <main class="pb7" role="main">
-      {{ block "main" . }}{{ end }}
+  <body class="grid grid-rows-layout">
+    <header class="row-span-1 sticky top-0 bg-white">
+      {{ partial "site-navigation.html" .}}
+    </header>
+    <main class="row-span-2 bg-primary-50" role="main">
+      {{ $featured_image_path := partial "func/GetFeaturedImage.html" . }}
+      {{ if $featured_image_path }}
+        {{ $featured_image := resources.Get $featured_image_path }}
+        {{ $thumbnail := $featured_image.Resize "x100 jpg" }}
+        <img 
+          data-src="{{ $featured_image.RelPermalink }}"
+          src="{{ $thumbnail.RelPermalink }}"
+          class="lozad w-full lg:h-96 object-cover"
+        >
+      {{ end }}
+      <div class="container">
+        {{ block "main" . }}{{ end }}
+      </div>
     </main>
-    {{ block "footer" . }}{{ partialCached "site-footer.html" . }}{{ end }}
+    <footer class="{{ .Site.Params.background_color_class | default "border-primary-700" }} bg-white border-t-4 bottom-0 w-full py-8 row-span-3" role="contentinfo">
+      <div class="flex justify-between container">
+        <a class="text-sm text-primary-700 hover:text-primary-500" href="{{ .Site.BaseURL }}" >
+          &copy; {{ with .Site.Copyright | default .Site.Title }} {{ . | safeHTML }} {{ now.Format "2006"}} {{ end }}
+        </a>
+        <div class="flex space-x-6">{{ partial "social-follow.html" . }}</div>
+      </div>
+    </footer>
     {{ block "scripts" . }}{{ partialCached "site-scripts.html" . }}{{ end }}
   </body>
 </html>
