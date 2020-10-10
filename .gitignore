@@ -29,5 +29,3 @@ dist/
 
 /junit.xml
 partials/structure/stylesheet.html
-static
-layouts

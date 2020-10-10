@@ -40,3 +40,18 @@ body {
     @apply ml-4;
   }
 }
+
+div.no-img {
+  @apply bg-no-repeat;
+  @apply bg-center;
+  @apply bg-contain;
+  @apply p-4;
+  background-image: url("./book-open.svg"),
+    linear-gradient(
+      45deg,
+      rgba(0, 212, 255, 1) 0%,
+      rgb(0, 149, 179) 40%,
+      rgba(9, 9, 121, 1) 95%,
+      rgba(2, 0, 36, 1) 100%
+    );
+}
