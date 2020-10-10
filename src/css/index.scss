@@ -1,0 +1,42 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+@import "_code";
+
+body {
+  @apply font-sans;
+}
+
+.content {
+  scroll-behavior: smooth;
+  p {
+    @apply my-4;
+  }
+  h2,
+  h3,
+  h4 {
+    @apply my-4;
+  }
+  h2 {
+    @apply text-3xl;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+  h4 {
+    @apply text-xl;
+  }
+}
+
+#TableOfContents {
+  ul {
+    @apply list-inside;
+    @apply list-disc;
+  }
+  li ul {
+    @apply ml-4;
+  }
+}
