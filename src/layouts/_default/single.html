@@ -9,25 +9,29 @@
           */}}
         {{with .CurrentSection.Title }}{{. | upper }}{{end}}
       </aside>
-      {{ partial "social-share.html" . }}
-      <h1 class="f1 athelas mt3 mb1">
+      {{/* Hugo uses Go's date formatting is set by example. Here are two formats */}}
+      <time class="text-sm text-neutral-700" {{ printf `datetime="%s"` (.Date.Format "2006-01-02T15:04:05Z07:00") | safeHTMLAttr }}>
+        {{- .Date.Format "January 2, 2006" -}}
+      </time>
+      <h1 class="text-4xl mb-2">
         {{- .Title -}}
       </h1>
       {{ with .Params.author }}
-      <p class="tracked">
-          By <strong>
-          {{ if reflect.IsSlice . }}
-              {{ delimit . ", " | markdownify }}
-          {{else}}
-              {{ . | markdownify }}
-          {{ end }}
-          </strong>
-      </p>
+      <div class="mb-2">
+        <p>
+            By <strong>
+            {{ if reflect.IsSlice . }}
+                {{ delimit . ", " | markdownify }}
+            {{else}}
+                {{ . | markdownify }}
+            {{ end }}
+            </strong>
+        </p>
+      </div>
       {{ end }}
-      {{/* Hugo uses Go's date formatting is set by example. Here are two formats */}}
-      <time class="f6 mv4 dib tracked" {{ printf `datetime="%s"` (.Date.Format "2006-01-02T15:04:05Z07:00") | safeHTMLAttr }}>
-        {{- .Date.Format "January 2, 2006" -}}
-      </time>
+      {{ with .Params.description }}
+        <h2 class="text-lg mt-2">{{ . }}</h2>
+      {{ end }}
 
       {{/*
           Show "reading time" and "word count" but only if one of the following are true:
@@ -36,26 +40,63 @@
           3) A page front matter value is set `show_reading_time = true`
         */}}
       {{ if (or (eq (.Param "show_reading_time") true) (eq $section.Params.show_reading_time true) )}}
-        <span class="f6 mv4 dib tracked"> - {{ .ReadingTime}} minutes read</span>
-        <span class="f6 mv4 dib tracked"> - {{ .WordCount}} words</span>
+        <div class="text-neutral-700 flex items-center space-x-2 text-sm mt-2">{{ partial "svg/clock.svg" (dict "size" "14px") }}<span class="whitespace-no-wrap"> {{ .ReadingTime}} minutes read</span></div>
       {{ end }}
-    </header>
-    <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | default "serif"}} f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-      {{- .Content -}}
-      {{- partial "tags.html" . -}}
-      <div class="mt6 instapaper_ignoref">
-      {{ if .Site.DisqusShortname }}
-        {{ template "_internal/disqus.html" . }}
-      {{ end }}
-      {{ if .Site.Params.commentoEnable }}
-        {{- partial "commento.html" . -}}
-      {{ end }}
-      </div>
-    </div>
-
-    <aside class="w-30-l mt6-l">
       {{- partial "menu-contextual.html" . -}}
-    </aside>
+    </header>
+    <div class="flex flex-col lg:flex-row">
+      <div class="content leading-8 text-lg {{ $.Param "post_content_classes"  | default "font-serif"}} max-w-2xl mt-8">
+        {{- .Content -}}
+        <div class="mt6 instapaper_ignoref">
+        {{ if .Site.DisqusShortname }}
+          {{ template "_internal/disqus.html" . }}
+        {{ end }}
+        {{ if .Site.Params.commentoEnable }}
+          {{- partial "commento.html" . -}}
+        {{ end }}
+        </div>
+      </div>
+      <aside class="mt-8 lg:mt-0 lg:self-end lg:pl-20">
+        <p>{{ i18n "didYouLike" . }}</p>
+        {{ partial "social-share.html" . }}
 
+        {{/*
+          Use Hugo's native related content feature to pull in content that may have similar parameters, like tags. etc.
+          https://gohugo.io/content-management/related/
+        */}}
+
+        {{ $related := .Site.RegularPages.Related . | first 5 }}
+
+        {{ with $related }}
+          <div class="mt-8 w-full overflow-x-auto">
+            <p class="text-lg">{{ i18n "related" }}</p>
+            <div class="flex flex-col space-y-4 mt-2">
+              {{ range . }}
+                <a href="{{ .RelPermalink }}">
+                  <div class="flex">
+                    {{ $featured_image_path := partial "func/GetFeaturedImage.html" . }}
+                    {{ if $featured_image_path }}
+                      {{ $featured_image := resources.Get $featured_image_path }}
+                      {{ $thumbnail := $featured_image.Resize "x100 jpg" }}
+                      <img
+                        data-src="{{ $thumbnail.RelPermalink }}"
+                        class="lozad w-20 h-20 object-cover"
+                      >
+                    {{ else }}
+                      {{ partial "svg/post-placeholder.svg" }}
+                    {{ end }}
+                    <div class="ml-4">
+                      <h1 class="font-bold">{{- .Title -}}</h1>
+                      <p>{{- .Description -}}</p>
+                    </div>
+                  </div>
+                </a>
+              {{ end }}
+            </ul>
+          </div>
+        {{ end }}
+      </aside>
+    </div>
+    {{- partial "tags.html" . -}}
   </article>
 {{ end }}

@@ -13,6 +13,9 @@ other = "read more"
 [whatsInThis]
 other = "What's in this {{ .Type }}"
 
+[didYouLike]
+other = "Did you like this {{ .Type }}? Share it!"
+
 [related]
 other = "Related"
 
