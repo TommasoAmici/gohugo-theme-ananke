@@ -4,8 +4,8 @@
 */}}
 
 {{- if .Params.toc -}}
-  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
-    <p class="f5 b mb3">{{ i18n "whatsInThis" . }}</p>
+  <div class="bg-white p-4 rounded-md border-primary-100 border-4 mt-4 max-w-2xl">
+    <p class="text-lg mb-4">{{ i18n "whatsInThis" . }}</p>
       {{ .TableOfContents }}
   </div>
 {{- end -}}

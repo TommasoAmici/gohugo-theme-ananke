@@ -1,13 +1,13 @@
 {{ define "main" }}
-  <article class="cf pa3 pa4-m pa4-l">
-    <div class="measure-wide-l center f4 lh-copy nested-copy-line-height nested-links nested-img mid-gray">
+  <article class="mt-12 mb-8 flex flex-col">
+    <div class="">
       <p>{{i18n "taxonomyPageList" .}}</p>
     </div>
   </article>
-  <div class="mw8 center">    
-    <section class="flex-ns flex-wrap justify-around mt5">
+  <div class=" mb-20">
+    <section class="space-y-8">
       {{ range  .Pages }}
-        <div class="relative w-100  mb4 bg-white">
+        <div class="relative w-full max-w-2xl bg-white rounded-md border-primary-100 border-4">
           {{ partial "summary.html" . }}
         </div>
       {{ end }}
