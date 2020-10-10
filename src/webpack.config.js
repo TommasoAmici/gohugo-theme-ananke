@@ -38,7 +38,7 @@ module.exports = (env) => {
         },
         {
           test: /\.svg$/,
-          loader: "url-loader",
+          loader: "file-loader",
         },
         {
           test: /\.(scss|css)$/,
@@ -102,7 +102,7 @@ module.exports = (env) => {
               destination: "../static/font",
             },
             {
-              source: "./dist/*.{css,js}",
+              source: "./dist/*.{css,js,svg}",
               destination: "../static",
             },
           ],

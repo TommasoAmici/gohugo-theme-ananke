@@ -24,6 +24,7 @@
     "copy-webpack-plugin": "^6.2.0",
     "css-loader": "^4.3.0",
     "cssnano": "^4.1.10",
+    "file-loader": "^6.1.1",
     "filemanager-webpack-plugin": "^3.0.0-alpha.1",
     "fork-ts-checker-webpack-plugin": "^5.2.0",
     "html-webpack-plugin": "^4.5.0",
@@ -40,7 +41,6 @@
     "tailwindcss": "^1.8.12",
     "ts-loader": "^8.0.4",
     "typescript": "^4.0.3",
-    "url-loader": "^4.1.1",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
   },
